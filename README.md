@@ -1,9 +1,5 @@
 
 
-
-### Navigate to kilt demo
-cd packages/cid-kilt
-
 ### Install dependencies
 yarn install
 
