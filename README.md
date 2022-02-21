@@ -1,18 +1,10 @@
 
 
-
-### Navigate to kilt demo
-cd packages/cid-kilt
-
 ### Install dependencies
 yarn install
 
 ### Build
 npm run build
-
-### create ENV file
-vi .env
-[enter env variables and save]
 
 
 ### Run docker for local kilt-node
