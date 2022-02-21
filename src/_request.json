@@ -1,0 +1,27 @@
+{
+  "claim": {
+    "cTypeHash": "0xd8ad043d91d8fdbc382ee0ce33dc96af4ee62ab2d20f7980c49d3e577d80e5f5",
+    "contents": {
+      "name": "Alice",
+      "age": 25
+    },
+    "owner": "did:kilt:light:004qwnPvFjEaMt9Z9VbSLVnxLEkEWyQreMHvHtUZi3o7Txt3x9:z1Ac9CMtYCTRWjetJfJqJoV7FcPHvmMnHx6vAKTt4eFwDMqjUo61HApr965ARbHqdLmoJmZVaoszExRkQkGjRdJ"
+  },
+  "claimHashes": [
+    "0x32b11f4578e4630fcbfade45eb051af3d50845454f9a676690e811146a4f1bc1",
+    "0x6468922b499f8a768032b362b54f6b8cbf2f4f488cfea0552b6680417824f3d8",
+    "0x66c6b5be719098fbcc9608cccaa1f18bf25131f7e899e3601fd12888e5201742"
+  ],
+  "claimNonceMap": {
+    "0xa32f7aa84ded08e476b8149d8794d259c71c5687d7d5c5342745d6054aa8d4cd": "66c941fe-6565-46af-9737-9eb9e3d94790",
+    "0xa919076ce52e7a5e3d90fb3b8b7d0f8931cbfb3c8ab92d25369bb977948e6b71": "4a1e2cd7-6a7b-4d81-8328-18527136caec",
+    "0x6cd8f94df91132d454a3a4151ab96c1a286ba39e149fd6141df96262063a572e": "c1843b17-7059-4915-b4d1-4f2aa0be9bfa"
+  },
+  "legitimations": [],
+  "delegationId": null,
+  "rootHash": "0x6fad8f31d571b45ca2eb28731f2a4540ee2ce1151e953cfc2cbf52881aafc5c7",
+  "claimerSignature": {
+    "signature": "0x3658ca386b180bfaa84075b06096b15d647b71d799dce6b5434baac207bdc96f7f9b6f174a3e541bae84b461b605e070a7dbe3841c4a3de31b5fa7f0836a5582",
+    "keyId": "did:kilt:light:004qwnPvFjEaMt9Z9VbSLVnxLEkEWyQreMHvHtUZi3o7Txt3x9:z1Ac9CMtYCTRWjetJfJqJoV7FcPHvmMnHx6vAKTt4eFwDMqjUo61HApr965ARbHqdLmoJmZVaoszExRkQkGjRdJ#authentication"
+  }
+}
