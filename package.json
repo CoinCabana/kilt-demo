@@ -5,6 +5,8 @@
   "main": "index.js",
   "devDependencies": {},
   "scripts": {
+    "clean": "rimraf dist/",
+    "prebuild": "npm run clean",
     "build": "tsc"
   },
   "repository": {
@@ -25,5 +27,12 @@
   "resolutions": {
     "bn.js": "^4.12.0",
     "@types/bn.js": "^4.11.0"
+  },
+  "devDependencies": {
+    "@types/node": "^16.9.1",
+    "ts-node": "^10.2.1",
+    "typescript": "^4.5.5",
+    "rimraf": "^3.0.2",
+    "dotenv": "^14.2.0"
   }
 }
