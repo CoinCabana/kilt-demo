@@ -1,19 +1,11 @@
 {
-  "name": "cabana-identity-service",
+  "name": "kilt-demo",
   "version": "1.0.0",
   "main": "index.js",
   "private": true,
-  "repository": "https://github.com/CoinCabana/cabana-identity-service.git",
+  "repository": "https://github.com/CoinCabana/kilt-demo.git",
   "author": "Frank Fox <ffox77@gmail.com>",
   "license": "MIT",
-  "workspaces": [
-    "packages/identity-service-agent",
-    "packages/identity-service-cli",
-    "packages/identity-map",
-    "packages/cid-kilt",
-    "packages/cid-keyring",
-    "packages/cid-account-eth"
-  ],
   "devDependencies": {
     "@types/node": "^16.9.1",
     "ts-node": "^10.2.1",
