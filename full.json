@@ -1,0 +1,41 @@
+{
+  "id": "did:kilt:4rK8WrHm3hmQ2osWD2k2Uoakw5bJ2BV3ynz9GdQ1USgJUtqD",
+  "verificationMethod": [
+    {
+      "id": "did:kilt:4rK8WrHm3hmQ2osWD2k2Uoakw5bJ2BV3ynz9GdQ1USgJUtqD#0x2a81a6e3b519f6345259f8cab280db9d0006511dc50ecd31fbab09fd8abb9e24",
+      "controller": "did:kilt:4rK8WrHm3hmQ2osWD2k2Uoakw5bJ2BV3ynz9GdQ1USgJUtqD",
+      "type": "EcdsaSecp256k1VerificationKey2019",
+      "publicKeyBase58": "25xsM9A85no87S6Nj9bwQkfjeHfM4W4sjd2oA4x3YdBJ2"
+    },
+    {
+      "id": "did:kilt:4rK8WrHm3hmQ2osWD2k2Uoakw5bJ2BV3ynz9GdQ1USgJUtqD#0xb7a59b1c69421d3c461c168639c6e807091a3862d6a1ab8283a5ae751a643c0e",
+      "controller": "did:kilt:4rK8WrHm3hmQ2osWD2k2Uoakw5bJ2BV3ynz9GdQ1USgJUtqD",
+      "type": "X25519KeyAgreementKey2019",
+      "publicKeyBase58": "C7nFBTVWbP2vmRANciLHfBUjeg7Unm5AT8A8ymUXKCqS"
+    },
+    {
+      "id": "did:kilt:4rK8WrHm3hmQ2osWD2k2Uoakw5bJ2BV3ynz9GdQ1USgJUtqD#0x2a81a6e3b519f6345259f8cab280db9d0006511dc50ecd31fbab09fd8abb9e24",
+      "controller": "did:kilt:4rK8WrHm3hmQ2osWD2k2Uoakw5bJ2BV3ynz9GdQ1USgJUtqD",
+      "type": "EcdsaSecp256k1VerificationKey2019",
+      "publicKeyBase58": "25xsM9A85no87S6Nj9bwQkfjeHfM4W4sjd2oA4x3YdBJ2"
+    },
+    {
+      "id": "did:kilt:4rK8WrHm3hmQ2osWD2k2Uoakw5bJ2BV3ynz9GdQ1USgJUtqD#0x2a81a6e3b519f6345259f8cab280db9d0006511dc50ecd31fbab09fd8abb9e24",
+      "controller": "did:kilt:4rK8WrHm3hmQ2osWD2k2Uoakw5bJ2BV3ynz9GdQ1USgJUtqD",
+      "type": "EcdsaSecp256k1VerificationKey2019",
+      "publicKeyBase58": "25xsM9A85no87S6Nj9bwQkfjeHfM4W4sjd2oA4x3YdBJ2"
+    }
+  ],
+  "authentication": [
+    "did:kilt:4rK8WrHm3hmQ2osWD2k2Uoakw5bJ2BV3ynz9GdQ1USgJUtqD#0x2a81a6e3b519f6345259f8cab280db9d0006511dc50ecd31fbab09fd8abb9e24"
+  ],
+  "keyAgreement": [
+    "did:kilt:4rK8WrHm3hmQ2osWD2k2Uoakw5bJ2BV3ynz9GdQ1USgJUtqD#0xb7a59b1c69421d3c461c168639c6e807091a3862d6a1ab8283a5ae751a643c0e"
+  ],
+  "assertionMethod": [
+    "did:kilt:4rK8WrHm3hmQ2osWD2k2Uoakw5bJ2BV3ynz9GdQ1USgJUtqD#0x2a81a6e3b519f6345259f8cab280db9d0006511dc50ecd31fbab09fd8abb9e24"
+  ],
+  "capabilityDelegation": [
+    "did:kilt:4rK8WrHm3hmQ2osWD2k2Uoakw5bJ2BV3ynz9GdQ1USgJUtqD#0x2a81a6e3b519f6345259f8cab280db9d0006511dc50ecd31fbab09fd8abb9e24"
+  ]
+}

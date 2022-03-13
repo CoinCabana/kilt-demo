@@ -15,6 +15,11 @@ class KiltConnector {
         await Kilt.init({ address: appEnv.WSS_ADDRESS });
     }
 
+    async api() {
+        const { api } = await Kilt.connect();
+        return api;
+    }
+
     async bootstrapAttester (mnemonic: string) {
         //MashNet Seed Account
         const seedKeyring = new Kilt.Utils.Keyring({ ss58Format: 38, type: 'ed25519'});
@@ -38,7 +43,7 @@ class KiltConnector {
     }
 
     private async transfer(fromAccount, address, transferAmount) {
-        await Kilt.Balance.makeTransfer(address, transferAmount, 0).then((tx) =>
+        await Kilt.Balance.getTransferTx(address, transferAmount, 0).then((tx) =>
             Kilt.BlockchainUtils.signAndSubmitTx(tx, fromAccount, {
                 resolveOn: Kilt.BlockchainUtils.IS_FINALIZED,
                 reSign: true,

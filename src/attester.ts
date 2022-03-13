@@ -1,6 +1,6 @@
 import * as Kilt from '@kiltprotocol/sdk-js';
 import {KeyringPair} from "@kiltprotocol/types";
-import {BlockchainUtils, CType, Did, IDidResolvedDetails} from "@kiltprotocol/sdk-js";
+import {BlockchainUtils, CType, Did, IDidDetails, IRequestForAttestation} from "@kiltprotocol/sdk-js";
 import {didService} from "./services/did-service";
 import {keypairUtil, SignEncryptKeyPairs} from "./utils/keypair-util";
 import {accountFactory} from "./factories/account-factory";
@@ -14,9 +14,9 @@ export abstract class Attester {
 
     protected account: KeyringPair;
     protected keystore: CidKeystore;
-    protected didUri: string;
+    // protected didUri: string;
     protected keyPairs: SignEncryptKeyPairs;
-    protected fullDid: IDidResolvedDetails;
+    protected fullDid: Did.FullDidDetails;
 
     protected constructor(protected mnemonic: string) {}
 
@@ -28,6 +28,8 @@ export abstract class Attester {
         //
         // console.log('cycle keys: '+newSecret);
 
+        throw new Error('done');
+
         // Create and store the key pairs in the keystore
         this.keyPairs = await keypairUtil.generateKeyPairs(this.keystore, this.mnemonic);
 
@@ -35,7 +37,7 @@ export abstract class Attester {
 
         this.fullDid = await this.getOrCreateFullDid();
 
-        console.log(JSON.stringify(Did.exportToDidDocument(this.fullDid.details, 'application/json'), null, 2))
+        //console.log(JSON.stringify(Did.exportToDidDocument(this.fullDid, 'application/json'), null, 2))
     }
 
     abstract createCtype(): CType;
@@ -45,9 +47,9 @@ export abstract class Attester {
         return JSON.stringify(ctype);
     }
 
-    async attestCredential(requestJSON) {
+    async attestCredential(requestJSON: string) {
         // parse, load account, attest credential, return as data
-        const request = JSON.parse(requestJSON);
+        const request: IRequestForAttestation = JSON.parse(requestJSON);
         const credential = await this.attestCredential2(this.account, this.fullDid, this.keystore, request);
         return JSON.stringify(credential);
     }
@@ -60,8 +62,8 @@ export abstract class Attester {
         if (isStored) return ctype;
 
         // authorize the extrinsic
-        const tx = await ctype.store();
-        const extrinsic = await this.fullDid.details['authorizeExtrinsic'](tx, this.keystore as any, this.account.address);
+        const tx = await ctype.getStoreTx();
+        const extrinsic = await this.fullDid.authorizeExtrinsic(tx, this.keystore, this.account.address);
 
         console.log('Attester.anchoring new CTYPE - ', ctype.schema.title);
 
@@ -76,9 +78,9 @@ export abstract class Attester {
         return ctype;
     }
 
-    async attestCredential2(account, fullDid, keystore, request) {
+    async attestCredential2(account: KeyringPair, fullDid: Did.FullDidDetails, keystore: CidKeystore, request: IRequestForAttestation) {
         // build the attestation object
-        const attestation = Kilt.Attestation.fromRequestAndDid(request, fullDid.details.did);
+        const attestation = Kilt.Attestation.fromRequestAndDid(request, fullDid.did);
 
         // check the request content and deny based on your business logic..
         // if (request.claim.content.age < 20) return null;
@@ -87,8 +89,8 @@ export abstract class Attester {
         if (!await Kilt.Attestation.query(attestation.claimHash)) {
 
             // form tx and authorized extrinsic
-            const tx = await attestation.store();
-            const extrinsic = await fullDid.details.authorizeExtrinsic(
+            const tx = await attestation.getStoreTx();
+            const extrinsic = await fullDid.authorizeExtrinsic(
                 tx,
                 keystore,
                 account.address
@@ -115,29 +117,33 @@ export abstract class Attester {
 
     private async getOrCreateFullDid(forceCreate = false) {
 
-        const fullDid = await didService.getDid(this.account.address);
+        console.log('getOrCreateFullDid for', this.account.address);
+
+        let fullDid = !forceCreate && await didService.getDid(this.account.address);
 
         // if we don't have the didUri create the on chain DID
-        if (fullDid && !forceCreate) {
-            this.didUri = fullDid.did;
-        }
-        else {
+        if (!fullDid) {
 
             console.log('Attester creating FullDid');
 
-            await didService.createFullDid(this.keystore, this.keyPairs, this.account);
+            fullDid = await didService.createFullDid(this.keystore, this.keyPairs, this.account);
 
-            // make sure the did is on chain
-            const onChain = await Did.DidChain.queryById(this.account.address)
-            if (!onChain) throw Error(`failed to find on chain: ${this.account.address}\n`)
+            console.log('Attester FullDid - ', fullDid.did);
 
-            this.didUri = onChain.did;
+            const json = Did.exportToDidDocument(fullDid, 'application/json')
+
+            console.log(JSON.stringify(json, null, 2));
+
+            // make sure the did is already on chain
+            // fullDid = await didService.getDid(this.account.address)
+            if (!fullDid)
+                throw Error(`failed to find on chain did: did:kilt:${this.account.address}`)
         }
 
-        console.log('Attester.FullDid found', this.didUri);
+        console.log('Attester.FullDid found', fullDid.did);
 
         // load and return the DID using the default resolver
-        return await Did.resolveDoc(this.didUri);
+        return fullDid;
     }
 
 }

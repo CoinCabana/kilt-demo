@@ -29,6 +29,22 @@ class KeypairUtil {
 
         return { signing, encryption }
     }
+
+    async generateLightKeyPairs(keystore: CidKeystore, mnemonic: string): Promise<SignEncryptKeyPairs> {
+        // signing keypair
+        const signing = await keystore.generateKeypair({
+            alg: Did.SigningAlgorithms.Sr25519,
+            seed: mnemonic,
+        });
+
+        // encryption keypair
+        const encryption = await keystore.generateKeypair({
+            alg: Did.EncryptionAlgorithms.NaclBox,
+            seed: mnemonic,
+        });
+
+        return { signing, encryption }
+    }
 }
 
 export const keypairUtil = new KeypairUtil();

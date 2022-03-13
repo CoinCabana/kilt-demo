@@ -1,5 +1,5 @@
-import {KeyringPair} from "@kiltprotocol/types";
-import {Claim, Credential, Did, RequestForAttestation} from "@kiltprotocol/sdk-js";
+import {KeyringPair, KeystoreSigner} from "@kiltprotocol/types";
+import {Claim, Credential, Did, IClaim, ICredential, RequestForAttestation} from "@kiltprotocol/sdk-js";
 import {keypairUtil, SignEncryptKeyPairs} from "./utils/keypair-util";
 import {didService} from "./services/did-service";
 import {accountFactory} from "./factories/account-factory";
@@ -19,7 +19,7 @@ export class Claimer {
         this.keystore = new CidKeystore();
 
         // Create and store the key pairs in the keystore
-        this.keyPairs = await keypairUtil.generateKeyPairs(this.keystore, this.mnemonic);
+        this.keyPairs = await keypairUtil.generateLightKeyPairs(this.keystore, this.mnemonic);
 
         this.didDetails = await didService.createLightDid(this.keyPairs);
 
@@ -33,9 +33,9 @@ export class Claimer {
     }
 
     // creates claim request from claim returning data
-    async createRequest(claimJSON) {
+    async createRequest(claimJSON: string) {
         // parse claim, load account, build request return data
-        const claim = JSON.parse(claimJSON);
+        const claim: IClaim = JSON.parse(claimJSON);
         try {
             // use test request if it exists
             const oldRequest = require('./_request.json');
@@ -47,8 +47,8 @@ export class Claimer {
         }
     }
 
-    async createPresentation(credentialJSON, challenge) {
-        const credential = JSON.parse(credentialJSON);
+    async createPresentation(credentialJSON: string, challenge: string) {
+        const credential: ICredential = JSON.parse(credentialJSON);
         const presentation = await this.createPresentation2(credential, challenge, this.didDetails, this.keystore);
         return JSON.stringify(presentation);
     }
@@ -63,7 +63,7 @@ export class Claimer {
         return claim;
     }
 
-    private async createPresentation2(credentialObj, challenge, lightDid, keystore) {
+    private async createPresentation2(credentialObj: ICredential, challenge: string, lightDid: Did.LightDidDetails, keystore: CidKeystore) {
         // creates a Credential from object
         const credential = new Credential(credentialObj)
 
@@ -77,9 +77,9 @@ export class Claimer {
         return presentation;
     }
 
-    private async createRequest2(lightDid, keystore, claim) {
+    private async createRequest2(lightDid: Did.LightDidDetails, keystore: CidKeystore, claim: IClaim) {
         const request = RequestForAttestation.fromClaim(claim);
-        await request.signWithDid(keystore, lightDid);
+        await request.signWithDidKey(keystore, lightDid, lightDid.authenticationKey.id);
 
         console.log('\n\nsave this to ./claimer/_request.json for testing\n\n');
         console.log(JSON.stringify(request, null, 2))
