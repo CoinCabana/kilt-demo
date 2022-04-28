@@ -28,10 +28,12 @@ export abstract class Attester {
         //
         // console.log('cycle keys: '+newSecret);
 
+        // throw new Error('done');
+
         // Create and store the key pairs in the keystore
         this.keyPairs = await keypairUtil.generateKeyPairs(this.keystore, this.mnemonic);
 
-        console.log('keyPairs.signing.publicKey - ', base58Encode(this.keyPairs.signing.publicKey));
+        // console.log('keyPairs.signing.publicKey - ', base58Encode(this.keyPairs.signing.publicKey));
 
         this.fullDid = await this.getOrCreateFullDid();
 

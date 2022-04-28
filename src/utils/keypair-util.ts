@@ -17,7 +17,7 @@ class KeypairUtil {
     async generateKeyPairs(keystore: CidKeystore, mnemonic: string): Promise<SignEncryptKeyPairs> {
         // signing keypair
         const signing = await keystore.generateKeypair({
-            alg: Did.SigningAlgorithms.EcdsaSecp256k1,
+            alg: Did.SigningAlgorithms.Sr25519,
             seed: mnemonic,
         });
 

@@ -17,6 +17,9 @@ class WorkshopDemo {
 
         return { attester, claimer, verifier };
     }
+    //"did:cabana:3840972389461827481264892731"
+    //verify.xyz/discord/36786222 -> DID
+    //   /verify @DocHolliday -> bot.service -> DID.resolve(cabana.DID) -> Adam Jones, CEO; EnzedFresh, Discord Moderator
 }
 
 export const workshopDemo = new WorkshopDemo();

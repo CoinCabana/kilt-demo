@@ -15,6 +15,10 @@ class KiltConnector {
         await Kilt.init({ address: appEnv.WSS_ADDRESS });
     }
 
+    async disconnect() {
+        await Kilt.disconnect();
+    }
+
     async api() {
         const { api } = await Kilt.connect();
         return api;
@@ -38,9 +42,7 @@ class KiltConnector {
         }
     }
 
-    async disconnect() {
-        await Kilt.disconnect();
-    }
+
 
     private async transfer(fromAccount, address, transferAmount) {
         await Kilt.Balance.getTransferTx(address, transferAmount, 0).then((tx) =>

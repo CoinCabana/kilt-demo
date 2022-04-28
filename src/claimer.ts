@@ -38,7 +38,7 @@ export class Claimer {
         const claim: IClaim = JSON.parse(claimJSON);
         try {
             // use test request if it exists
-            const oldRequest = require('./_request.json');
+            const oldRequest = require('../_request.json');
             return JSON.stringify(oldRequest);
         } catch(e) {
             // otherwise create a new one
